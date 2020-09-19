@@ -1,0 +1,7 @@
+1) cierra el navegador que lanza la aplicación (UpStar Music) en el aspa
+
+2) comprueba en el cmd que termina la compilación (no mates el proceso)
+
+3) en chrome vete a http://localhost:4172/webpack-dev-server y http://localhost:4172/bundle.js y comprueba que responde
+
+4) abre otro cmd en el mismo directorio y ejecuta npm run start
