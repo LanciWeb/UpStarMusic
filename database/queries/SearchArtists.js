@@ -36,13 +36,13 @@ const buildQuery = (criteria) => {
   return filterCriteria;
 };
 
-//# Indexes and text search
+//# Indexes and text search ($text)
 
 /**
  * if we want to drastically increase the speed of our searches, we can index a field.
  * To do so, we use the MongoDB CLI
  *
- * TODO - open the console in the project folder and run the following commands
+ * TODO - open the console where mongo is running and run the following commands
  * | mongo
  * | show dbs
  * | use upstar_music
@@ -51,4 +51,10 @@ const buildQuery = (criteria) => {
  * So we ran the mongo CLI, checked the list of the db in our local mongo installation
  * and picked the one belonging to our project
  * then we specified the collection and call createIndex, passing the key of the field and its type
+ * !we can do this for only 1 field per collection
+ * ! the text index does not find portion of text so searching "Daw" will not find "Dawn Potter"
+ * ! searching "Dawn" or "Potter" will instead find a match
+ *
+ * To use the index in our queries, we need to attach at $text property to our query, no need to specify the field:
+ * | i.e. Artist.find({age: 21, $text: "Dawn"})
  */
