@@ -28,7 +28,9 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
 
 const buildQuery = (criteria) => {
   const { age, name, yearsActive } = criteria;
-  let filterCriteria = { name: { $regex: name } };
+  // let filterCriteria = { name: { $regex: name } }; //? this finds also pieces of incomplete names;
+  const filterCriteria = {};
+  if (name) filterCriteria.$text = { $search: name }; //? this is instead using the index (faster but more strict)
   if (age) filterCriteria.age = { $gte: age.min, $lte: age.max };
   if (yearsActive)
     yearsCriteria = { $gte: yearsActive.min, $lte: yearsActive.max };
@@ -56,5 +58,5 @@ const buildQuery = (criteria) => {
  * ! searching "Dawn" or "Potter" will instead find a match
  *
  * To use the index in our queries, we need to attach at $text property to our query, no need to specify the field:
- * | i.e. Artist.find({age: 21, $text: "Dawn"})
+ * | i.e. Artist.find({age: 21, $text:{$search: "Dawn"}})
  */
