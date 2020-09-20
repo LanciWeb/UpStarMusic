@@ -12,7 +12,11 @@ const ArtistSchema = new Schema({
   netWorth: Number,
   labelName: String,
   retired: Boolean,
-  Albums: [AlbumSchema],
+  albums: [AlbumSchema],
+});
+
+ArtistSchema.virtual('albumsReleased').get(function () {
+  return this.albums.length;
 });
 
 const Artist = mongoose.model('Artist', ArtistSchema);
